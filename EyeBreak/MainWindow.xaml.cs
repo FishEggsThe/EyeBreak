@@ -11,14 +11,24 @@ using System.Windows.Shapes;
 
 namespace EyeBreak
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void btnAddWait_Click(object sender, RoutedEventArgs e) {
+
+        }
+        private void btnAddBreak_Click(object sender, RoutedEventArgs e) {
+
+        }
+        private void btnAddSound_Click(object sender, RoutedEventArgs e) {
+
+        }
+        private void btnStartTimer_Click(object sender, RoutedEventArgs e) {
+
         }
     }
 }
