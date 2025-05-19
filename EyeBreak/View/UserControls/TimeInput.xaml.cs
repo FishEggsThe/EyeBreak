@@ -15,14 +15,35 @@ using System.Windows.Shapes;
 
 namespace EyeBreak.View.UserControls
 {
-    /// <summary>
-    /// Interaction logic for TimeInput.xaml
-    /// </summary>
-    public partial class TimeInput : UserControl
-    {
+    public partial class TimeInput : UserControl {
+        int numOfDefaultTimes;
+
         public TimeInput()
         {
             InitializeComponent();
+            lvTimes.Items.Add("20");
+            lvTimes.Items.Add("30");
+            lvTimes.Items.Add("40");
+            numOfDefaultTimes = lvTimes.Items.Count;
+        }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e) {
+            string time = txtInput.Text;
+            if (int.TryParse(time, out int value)) {
+                lvTimes.Items.Add("*"+time);
+            } else {
+                MessageBox.Show("Please input a whole number");
+            }
+        }
+
+        private void btnDel_Click(object sender, RoutedEventArgs e) {
+            int index = lvTimes.SelectedIndex;
+
+            if (index >= numOfDefaultTimes) {
+                lvTimes.Items.RemoveAt(index);
+            } else {
+                MessageBox.Show("Only custom numbers can be deleted");
+            }
         }
     }
 }
