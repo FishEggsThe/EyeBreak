@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using EyeBreak.View;
 
 namespace EyeBreak
 {
@@ -18,17 +19,16 @@ namespace EyeBreak
             InitializeComponent();
         }
 
-        private void btnAddWait_Click(object sender, RoutedEventArgs e) {
-
-        }
-        private void btnAddBreak_Click(object sender, RoutedEventArgs e) {
-
-        }
-        private void btnAddSound_Click(object sender, RoutedEventArgs e) {
-
-        }
         private void btnStartTimer_Click(object sender, RoutedEventArgs e) {
+            object waitTime = tiWait.lbTimes.Items;
+            MessageBox.Show((string)waitTime);
+            //object breakTime = tiBreak.lbTimes.Items.SelectedItem;
 
+            //TimerWindow timerWindow = new TimerWindow((string)waitTime, "also fiddy");
+            TimerWindow timerWindow = new TimerWindow("fiddy", "also fiddy");
+            Opacity = 0.3;
+            timerWindow.ShowDialog();
+            Opacity = 1;
         }
     }
 }

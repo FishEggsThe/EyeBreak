@@ -15,15 +15,15 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <userControl:TimeInput/>
-        <userControl:TimeInput Grid.Row="1"/>
+        <userControl:TimeInput x:Name="tiWait"/>
+        <userControl:TimeInput x:Name="tiBreak" Grid.Row="1"/>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Name="btnAddSound" Width="100" Height="40" Content="Add Sound" 
-            Click="btnAddSound_Click"/>
+            <Button Name="btnAddSound" Width="100" Height="40" Content="Add Sound"/>
             <TextBox Width="100" Height="40"/>
             <ListView Width="100"/>
         </StackPanel>
+        
         <Button Grid.Row="3" Name="btnStartTimer" Width="100" Height="40" Content="Start Timer" 
             Click="btnStartTimer_Click"/>
     </Grid>

@@ -21,26 +21,26 @@ namespace EyeBreak.View.UserControls
         public TimeInput()
         {
             InitializeComponent();
-            lvTimes.Items.Add("20");
-            lvTimes.Items.Add("30");
-            lvTimes.Items.Add("40");
-            numOfDefaultTimes = lvTimes.Items.Count;
+            lbTimes.Items.Add("20");
+            lbTimes.Items.Add("30");
+            lbTimes.Items.Add("40");
+            numOfDefaultTimes = lbTimes.Items.Count;
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e) {
             string time = txtInput.Text;
             if (int.TryParse(time, out int value)) {
-                lvTimes.Items.Add("*"+time);
+                lbTimes.Items.Add("*"+time);
             } else {
                 MessageBox.Show("Please input a whole number");
             }
         }
 
         private void btnDel_Click(object sender, RoutedEventArgs e) {
-            int index = lvTimes.SelectedIndex;
+            int index = lbTimes.SelectedIndex;
 
             if (index >= numOfDefaultTimes) {
-                lvTimes.Items.RemoveAt(index);
+                lbTimes.Items.RemoveAt(index);
             } else {
                 MessageBox.Show("Only custom numbers can be deleted");
             }
