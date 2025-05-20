@@ -20,7 +20,7 @@ namespace EyeBreak
         }
 
         private void btnStartTimer_Click(object sender, RoutedEventArgs e) {
-            object waitTime = tiWait.lbTimes.Items;
+            object waitTime = tiWait.lvTimes.Items;
             MessageBox.Show((string)waitTime);
             //object breakTime = tiBreak.lbTimes.Items.SelectedItem;
 

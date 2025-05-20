@@ -13,7 +13,7 @@
             <Button x:Name="btnDel" Width="50" Height="40" Content="Del"
                     Click="btnDel_Click"/>
             <TextBox x:Name="txtInput" Width="100" Height="40"/>
-            <ListBox x:Name="lbTimes"  Width="100"/>
+            <ListView x:Name="lvTimes"  Width="100" SelectionMode="Single"/>
         </StackPanel>
     </Grid>
 </UserControl>
