@@ -20,18 +20,11 @@ namespace EyeBreak.View.UserControls
 
         public TimeInput()
         {
-            DataContext = this;
             InitializeComponent();
             lvTimes.Items.Add("20");
             lvTimes.Items.Add("30");
             lvTimes.Items.Add("40");
             numOfDefaultTimes = lvTimes.Items.Count;
-        }
-
-        private string timeValue;
-        public string TimeValue {
-            get { return timeValue; }
-            set { timeValue = value; }
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e) {

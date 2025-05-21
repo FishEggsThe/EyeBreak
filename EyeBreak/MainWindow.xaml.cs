@@ -20,12 +20,11 @@ namespace EyeBreak
         }
 
         private void btnStartTimer_Click(object sender, RoutedEventArgs e) {
-            object waitTime = tiWait.lvTimes.Items;
-            MessageBox.Show((string)waitTime);
-            //object breakTime = tiBreak.lbTimes.Items.SelectedItem;
+            object waitTime = tiWait.lvTimes.SelectedItem;
+            object breakTime = tiBreak.lvTimes.SelectedItem;
 
-            //TimerWindow timerWindow = new TimerWindow((string)waitTime, "also fiddy");
-            TimerWindow timerWindow = new TimerWindow("fiddy", "also fiddy");
+            TimerWindow timerWindow = new TimerWindow((string)waitTime, (string)breakTime);
+            //TimerWindow timerWindow = new TimerWindow("fiddy", "also fiddy");
             Opacity = 0.3;
             timerWindow.ShowDialog();
             Opacity = 1;
