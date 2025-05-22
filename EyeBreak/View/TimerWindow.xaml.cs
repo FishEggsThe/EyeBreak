@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Media;
+using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +24,7 @@ namespace EyeBreak.View
         int waitTimer, breakTimer, state = 0;
         DispatcherTimer timer;
         TimeSpan time;
-        SoundPlayer player;
+        SoundPlayer timeForBreakSound, duringBreakSound;
 
         public TimerWindow(string waitTime, string breakTime)
         {
@@ -32,6 +33,9 @@ namespace EyeBreak.View
 
             waitTimer = Int32.Parse(waitTime.TrimStart('*'));// * 60;
             breakTimer = Int32.Parse(breakTime.TrimStart('*'));
+
+            timeForBreakSound = new SoundPlayer("C:\\VisualStudio2022Projects\\EyeBreak\\EyeBreak\\Sounds\\car_crashing_t2.wav");
+            duringBreakSound = new SoundPlayer("C:\\VisualStudio2022Projects\\EyeBreak\\EyeBreak\\Sounds\\Hud_specialtric.wav");
 
             UpdateState();
         }
@@ -55,6 +59,13 @@ namespace EyeBreak.View
             state++;
             UpdateState();
         }
+        private void PlaySound(SoundPlayer player) {
+            player.Load();
+            player.PlayLooping();
+        }
+        private void StopSound(SoundPlayer player) {
+            player.Stop();
+        }
         private void UpdateState() {
             switch (state) {
                 case 0:
@@ -63,17 +74,18 @@ namespace EyeBreak.View
                     break;
                 case 1:
                     btnChangeState.IsEnabled = true;
+                    PlaySound(timeForBreakSound);
                     ButtonText = "Start Break";
-                    player = new SoundPlayer("C:\\VisualStudio2022Projects\\EyeBreak\\EyeBreak\\Sounds\\car_crashing_t2.wav");
-                    player.Load();
-                    player.Play();
                     break;
                 case 2:
                     StartTimer(breakTimer);
+                    StopSound(timeForBreakSound);
+                    PlaySound(duringBreakSound);
                     ButtonText = "Patience";
                     break;
                 case 3:
                     btnChangeState.IsEnabled = true;
+                    StopSound(duringBreakSound);
                     ButtonText = "Start Timers Again";
                     break;
                 default:
