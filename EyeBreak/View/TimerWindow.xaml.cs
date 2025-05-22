@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Media;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,8 @@ namespace EyeBreak.View
         int waitTimer, breakTimer, state = 0;
         DispatcherTimer timer;
         TimeSpan time;
+        SoundPlayer player;
+
         public TimerWindow(string waitTime, string breakTime)
         {
             DataContext = this;
@@ -61,6 +64,9 @@ namespace EyeBreak.View
                 case 1:
                     btnChangeState.IsEnabled = true;
                     ButtonText = "Start Break";
+                    player = new SoundPlayer("C:\\VisualStudio2022Projects\\EyeBreak\\EyeBreak\\Sounds\\car_crashing_t2.wav");
+                    player.Load();
+                    player.Play();
                     break;
                 case 2:
                     StartTimer(breakTimer);
