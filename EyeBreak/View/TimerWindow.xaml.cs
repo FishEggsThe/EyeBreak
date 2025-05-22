@@ -29,7 +29,7 @@ namespace EyeBreak.View
             waitTimer = Int32.Parse(waitTime.TrimStart('*'));
             breakTimer = Int32.Parse(breakTime.TrimStart('*'));
 
-            StartWaitTimer();
+            StartTimer(waitTimer);
         }
 
         private string currentTime;
@@ -38,33 +38,14 @@ namespace EyeBreak.View
             set { currentTime = value; }
         }
 
-        private void StartWaitTimer() {
+        private void StartTimer(int minutes) {
             time = TimeSpan.FromMinutes(waitTimer);
             timer = new DispatcherTimer();
-            timer.Tick += new EventHandler(UpdateWaitTimer);
+            timer.Tick += new EventHandler(UpdateTimer);
             timer.Interval = new TimeSpan(0, 0, 1);
             timer.Start();
         }
-        private void UpdateWaitTimer(object sender, EventArgs e) {
-            if (time == TimeSpan.Zero) {
-                timer.Stop();
-                StartBreakTimer();
-            } else {
-                time = time.Add(TimeSpan.FromSeconds(-1));
-                CurrentTime = time.ToString("c");
-                MessageBox.Show(CurrentTime);
-            }
-            CommandManager.InvalidateRequerySuggested();
-        }
-
-        private void StartBreakTimer() {
-            time = TimeSpan.FromMinutes(waitTimer);
-            timer = new DispatcherTimer();
-            timer.Tick += new EventHandler(UpdateBreakTimer);
-            timer.Interval = new TimeSpan(0, 0, 1);
-            timer.Start();
-        }
-        private void UpdateBreakTimer(object sender, EventArgs e) {
+        private void UpdateTimer(object sender, EventArgs e) {
             if (time == TimeSpan.Zero) {
                 timer.Stop();
             } else {
