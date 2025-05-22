@@ -7,8 +7,14 @@
         mc:Ignorable="d" Closing="Window_Closing"
         Title="TimerWindow" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
         <TextBlock x:Name="txtTimer" Text="{Binding CurrentTime}" 
                    FontSize="50" HorizontalAlignment="Center"
                    VerticalAlignment="Center"/>
+        <Button x:Name="btnChangeState" Grid.Row="1" Width="200" Content="{Binding ButtonText}"
+                Click="btnChangeState_Click"/>
     </Grid>
 </Window>

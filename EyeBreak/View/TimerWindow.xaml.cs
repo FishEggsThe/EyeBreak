@@ -19,7 +19,7 @@ using System.Windows.Threading;
 namespace EyeBreak.View
 {
     public partial class TimerWindow : Window, INotifyPropertyChanged {
-        int waitTimer, breakTimer;
+        int waitTimer, breakTimer, state = 0;
         DispatcherTimer timer;
         TimeSpan time;
         public TimerWindow(string waitTime, string breakTime)
@@ -27,13 +27,58 @@ namespace EyeBreak.View
             DataContext = this;
             InitializeComponent();
 
-            waitTimer = Int32.Parse(waitTime.TrimStart('*')) * 60;
+            waitTimer = Int32.Parse(waitTime.TrimStart('*'));// * 60;
             breakTimer = Int32.Parse(breakTime.TrimStart('*'));
 
-            StartTimer(waitTimer);
+            UpdateState();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null) {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private string buttonText;
+        public string ButtonText {
+            get { return buttonText; }
+            set { buttonText = value; OnPropertyChanged(); }
+        }
+
+        private void SetState(int stateNum) {
+            state = stateNum;
+            UpdateState();
+        }
+        private void IncrementState() {
+            state++;
+            UpdateState();
+        }
+        private void UpdateState() {
+            switch (state) {
+                case 0:
+                    StartTimer(waitTimer);
+                    ButtonText = "Wait";
+                    break;
+                case 1:
+                    btnChangeState.IsEnabled = true;
+                    ButtonText = "Start Break";
+                    break;
+                case 2:
+                    StartTimer(breakTimer);
+                    ButtonText = "Patience";
+                    break;
+                case 3:
+                    btnChangeState.IsEnabled = true;
+                    ButtonText = "Start Timers Again";
+                    break;
+                default:
+                    SetState(0);
+                    break;
+            }
+        }
+
+        private void btnChangeState_Click(object sender, RoutedEventArgs e) {
+            IncrementState();
+        }
 
         private string currentTime;
         public string CurrentTime {
@@ -42,6 +87,7 @@ namespace EyeBreak.View
         }
 
         private void StartTimer(int seconds) {
+            btnChangeState.IsEnabled = false;
             time = TimeSpan.FromSeconds(seconds);
             timer = new DispatcherTimer();
             timer.Tick += new EventHandler(UpdateTimer);
@@ -50,17 +96,13 @@ namespace EyeBreak.View
             timer.Start();
         }
 
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null) {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         private void UpdateTimer(object sender, EventArgs e) {
             if (time == TimeSpan.Zero) {
                 timer.Stop();
+                IncrementState();
             } else {
                 time = time.Add(TimeSpan.FromSeconds(-1));
                 CurrentTime = time.ToString("c");
-                MessageBox.Show(CurrentTime);
             }
             CommandManager.InvalidateRequerySuggested();
         }
