@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
@@ -17,45 +18,59 @@ namespace EyeBreak.View
 {
     public partial class TimerWindow : Window
     {
-        int waitTimer;
-        int breakTimer;
-        System.Windows.Threading.DispatcherTimer timer;
+        int waitTimer, breakTimer;
+        DispatcherTimer timer;
+        TimeSpan time;
         public TimerWindow(string waitTime, string breakTime)
         {
+            DataContext = this;
             InitializeComponent();
 
-            txtTimer.Text = $"{waitTime}m and {breakTime}s";
             waitTimer = Int32.Parse(waitTime.TrimStart('*'));
             breakTimer = Int32.Parse(breakTime.TrimStart('*'));
 
             StartWaitTimer();
         }
 
+        private string currentTime;
+        public string CurrentTime {
+            get { return currentTime; }
+            set { currentTime = value; }
+        }
+
         private void StartWaitTimer() {
-            timer = new System.Windows.Threading.DispatcherTimer();
+            time = TimeSpan.FromMinutes(waitTimer);
+            timer = new DispatcherTimer();
             timer.Tick += new EventHandler(UpdateWaitTimer);
-            timer.Interval = new TimeSpan(0, 1, 0);
+            timer.Interval = new TimeSpan(0, 0, 1);
             timer.Start();
         }
         private void UpdateWaitTimer(object sender, EventArgs e) {
-            waitTimer--;
-            txtTimer.Text = $"{waitTimer}";
-
-            if (waitTimer <= 0) { timer.Stop(); StartBreakTimer(); }
+            if (time == TimeSpan.Zero) {
+                timer.Stop();
+                StartBreakTimer();
+            } else {
+                time = time.Add(TimeSpan.FromSeconds(-1));
+                CurrentTime = time.ToString("c");
+                MessageBox.Show(CurrentTime);
+            }
             CommandManager.InvalidateRequerySuggested();
         }
 
         private void StartBreakTimer() {
-            timer = new System.Windows.Threading.DispatcherTimer();
+            time = TimeSpan.FromMinutes(waitTimer);
+            timer = new DispatcherTimer();
             timer.Tick += new EventHandler(UpdateBreakTimer);
             timer.Interval = new TimeSpan(0, 0, 1);
             timer.Start();
         }
         private void UpdateBreakTimer(object sender, EventArgs e) {
-            breakTimer--;
-            txtTimer.Text = $"{breakTimer}";
-
-            if (breakTimer <= 0) { timer.Stop(); }
+            if (time == TimeSpan.Zero) {
+                timer.Stop();
+            } else {
+                time = time.Add(TimeSpan.FromSeconds(-1));
+                CurrentTime = time.ToString("c");
+            }
             CommandManager.InvalidateRequerySuggested();
         }
     }

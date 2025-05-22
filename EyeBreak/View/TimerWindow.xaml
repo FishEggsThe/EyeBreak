@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="TimerWindow" Height="450" Width="800">
     <Grid>
-        <TextBlock x:Name="txtTimer" Text="Time" FontSize="50" HorizontalAlignment="Center"
+        <TextBlock x:Name="txtTimer" Text="{Binding CurrentTime}" 
+                   FontSize="50" HorizontalAlignment="Center"
                    VerticalAlignment="Center"/>
     </Grid>
 </Window>
