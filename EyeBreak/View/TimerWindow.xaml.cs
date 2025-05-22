@@ -27,25 +27,29 @@ namespace EyeBreak.View
             txtTimer.Text = $"{waitTime}m and {breakTime}s";
             waitTimer = Int32.Parse(waitTime.TrimStart('*'));
             breakTimer = Int32.Parse(breakTime.TrimStart('*'));
-            //MessageBox.Show($"{waitTimer} {breakTimer}");
 
-            StartTimer();
+            StartWaitTimer();
         }
 
-        private void StartTimer() {
+        private void StartWaitTimer() {
             timer = new System.Windows.Threading.DispatcherTimer();
             timer.Tick += new EventHandler(UpdateWaitTimer);
-            timer.Interval = new TimeSpan(0, 0, 1);
+            timer.Interval = new TimeSpan(0, 1, 0);
             timer.Start();
-            MessageBox.Show($"Jim {timer.IsEnabled}");
         }
-
         private void UpdateWaitTimer(object sender, EventArgs e) {
             waitTimer--;
             txtTimer.Text = $"{waitTimer}";
 
-            if (waitTimer <= 0) { timer.Stop(); }
+            if (waitTimer <= 0) { timer.Stop(); StartBreakTimer(); }
             CommandManager.InvalidateRequerySuggested();
+        }
+
+        private void StartBreakTimer() {
+            timer = new System.Windows.Threading.DispatcherTimer();
+            timer.Tick += new EventHandler(UpdateBreakTimer);
+            timer.Interval = new TimeSpan(0, 0, 1);
+            timer.Start();
         }
         private void UpdateBreakTimer(object sender, EventArgs e) {
             breakTimer--;
