@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,8 +18,7 @@ using System.Windows.Threading;
 
 namespace EyeBreak.View
 {
-    public partial class TimerWindow : Window
-    {
+    public partial class TimerWindow : Window, INotifyPropertyChanged {
         int waitTimer, breakTimer;
         DispatcherTimer timer;
         TimeSpan time;
@@ -32,10 +33,12 @@ namespace EyeBreak.View
             StartTimer(waitTimer);
         }
 
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         private string currentTime;
         public string CurrentTime {
             get { return currentTime; }
-            set { currentTime = value; }
+            set { currentTime = value; OnPropertyChanged(); }
         }
 
         private void StartTimer(int seconds) {
@@ -43,11 +46,12 @@ namespace EyeBreak.View
             timer = new DispatcherTimer();
             timer.Tick += new EventHandler(UpdateTimer);
             timer.Interval = new TimeSpan(0, 0, 1);
+            CurrentTime = time.ToString("c");
             timer.Start();
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
-            timer.Stop();
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null) {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private void UpdateTimer(object sender, EventArgs e) {
@@ -59,6 +63,10 @@ namespace EyeBreak.View
                 MessageBox.Show(CurrentTime);
             }
             CommandManager.InvalidateRequerySuggested();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
+            timer.Stop();
         }
     }
 }
