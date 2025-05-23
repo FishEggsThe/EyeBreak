@@ -22,14 +22,23 @@ namespace EyeBreak
         private void btnStartTimer_Click(object sender, RoutedEventArgs e) {
             object waitTime = tiWait.lvTimes.SelectedItem;
             object breakTime = tiBreak.lvTimes.SelectedItem;
+
             if (waitTime == null || breakTime == null) {
                 MessageBox.Show("Please select a time from both lists");
                 return;
             }
+
             TimerWindow timerWindow = new TimerWindow((string)waitTime, (string)breakTime);
             Opacity = 0.3;
             timerWindow.ShowDialog();
             Opacity = 1;
+        }
+
+        private void SaveTimes() {
+
+        }
+        private void LoadTimes() {
+
         }
     }
 }

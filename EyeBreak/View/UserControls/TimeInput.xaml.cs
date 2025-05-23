@@ -27,6 +27,11 @@ namespace EyeBreak.View.UserControls
             numOfDefaultTimes = lvTimes.Items.Count;
         }
 
+        private string[] customTimes = Array.Empty<string>;
+        public string[] CustomTimes {
+            get { return customTimes; }
+        }
+
         private void btnAdd_Click(object sender, RoutedEventArgs e) {
             string time = txtInput.Text;
             if (int.TryParse(time, out int value)) {

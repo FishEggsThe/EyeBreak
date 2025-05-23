@@ -127,6 +127,8 @@ namespace EyeBreak.View
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
             timer.Stop();
+            StopSound(timeForBreakSound);
+            StopSound(duringBreakSound);
         }
     }
 }
