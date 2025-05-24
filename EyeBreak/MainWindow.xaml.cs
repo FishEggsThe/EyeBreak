@@ -17,6 +17,7 @@ namespace EyeBreak
         public MainWindow()
         {
             InitializeComponent();
+            LoadTimes();
         }
 
         private void btnStartTimer_Click(object sender, RoutedEventArgs e) {
@@ -33,12 +34,11 @@ namespace EyeBreak
             timerWindow.ShowDialog();
             Opacity = 1;
         }
-
-        private void SaveTimes() {
-
-        }
         private void LoadTimes() {
-
+            foreach (var time in Settings.Default.WaitTimes)
+                tiWait.lvTimes.Items.Add(time);
+            foreach (var time in Settings.Default.BreakTimes)
+                tiBreak.lvTimes.Items.Add(time);
         }
     }
 }
