@@ -36,7 +36,7 @@ namespace EyeBreak.View.UserControls
             string time = txtInput.Text;
             if (int.TryParse(time, out int value)) {
                 lvTimes.Items.Add("*"+time);
-                SaveTime(time);
+                //SaveTime(time);
             } else {
                 MessageBox.Show("Please input a whole number");
             }
@@ -48,7 +48,7 @@ namespace EyeBreak.View.UserControls
             if (index >= numOfDefaultTimes) {
                 string time = (string)lvTimes.SelectedItem;
                 lvTimes.Items.RemoveAt(index);
-                DeleteTime(time);
+                //DeleteTime(time);
             } else {
                 MessageBox.Show("Only custom numbers can be deleted");
             }

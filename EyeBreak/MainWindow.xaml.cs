@@ -17,7 +17,7 @@ namespace EyeBreak
         public MainWindow()
         {
             InitializeComponent();
-            LoadTimes();
+            //LoadTimes();
         }
 
         private void btnStartTimer_Click(object sender, RoutedEventArgs e) {

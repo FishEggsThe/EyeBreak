@@ -25,6 +25,7 @@ namespace EyeBreak.View
         DispatcherTimer timer;
         TimeSpan time;
         SoundPlayer timeForBreakSound, duringBreakSound;
+        BrushConverter bc = new BrushConverter();
 
         public TimerWindow(string waitTime, string breakTime)
         {
@@ -96,6 +97,8 @@ namespace EyeBreak.View
 
         private void btnChangeState_Click(object sender, RoutedEventArgs e) {
             IncrementState();
+            //btnChangeState.Foreground = (Brush)bc.ConvertFrom("#8899A6");
+            //btnChangeState.Background = (Brush)bc.ConvertFrom("#22303C");
         }
 
         private string currentTime;

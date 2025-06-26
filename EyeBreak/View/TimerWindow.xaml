@@ -5,14 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EyeBreak.View"
         mc:Ignorable="d" Closing="Window_Closing"
-        Title="TimerWindow" Height="450" Width="800">
+        Title="TimerWindow" Height="450" Width="800"    Background="#15202B">
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#8899A6"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Foreground" Value="#8899A6"/>
+            <Setter Property="Background" Value="#22303C"/>
+        </Style>
+    </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
         <TextBlock x:Name="txtTimer" Text="{Binding CurrentTime}" 
-                   FontSize="50" HorizontalAlignment="Center"
+                   FontSize="100" HorizontalAlignment="Center"
                    VerticalAlignment="Center"/>
         <Button x:Name="btnChangeState" Grid.Row="1" Width="200" Content="{Binding ButtonText}"
                 Click="btnChangeState_Click"/>

@@ -6,25 +6,42 @@
         xmlns:local="clr-namespace:EyeBreak"
         xmlns:userControl="clr-namespace:EyeBreak.View.UserControls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="450">
+        Title="MainWindow" Height="800" Width="800"
+        Background="#15202B">
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="#8899A6"/>
+            <Setter Property="FontSize" Value="30"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Foreground" Value="#8899A6"/>
+            <Setter Property="Background" Value="#22303C"/>
+        </Style>
+    </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
             <RowDefinition/>
+            <RowDefinition Height="60"/>
             <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
 
-        <userControl:TimeInput x:Name="tiWait"/>
-        <userControl:TimeInput x:Name="tiBreak" Grid.Row="1"/>
+        <Label Grid.Row="0" Content="Wait Time (Minutes)"
+               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <userControl:TimeInput x:Name="tiWait" Grid.Row="1"/>
 
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+        <Label Grid.Row="2" Content="Break Time (Seconds)"
+               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <userControl:TimeInput x:Name="tiBreak" Grid.Row="3"/>
+
+        <!-- StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Name="btnAddSound" Width="100" Height="40" Content="Add Sound"/>
             <TextBox Width="100" Height="40"/>
             <ListView Width="100"/>
-        </StackPanel>
-        <Label Grid.Row="3" Content="Hi"/>
-        <Button Grid.Row="3" Name="btnStartTimer" Width="100" Height="40" Content="Start Timer" 
+        </StackPanel> -->
+        <Button Grid.Row="4" Name="btnStartTimer" Width="100" Height="40" Content="Start Timer" 
             Click="btnStartTimer_Click"/>
     </Grid>
 </Window>
