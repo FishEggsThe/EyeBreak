@@ -74,7 +74,7 @@ namespace EyeBreak.View
                     ButtonText = "Wait";
                     break;
                 case 1:
-                    btnChangeState.IsEnabled = true;
+                    //btnChangeState.IsEnabled = true;
                     PlaySound(timeForBreakSound);
                     ButtonText = "Start Break";
                     break;
@@ -85,7 +85,7 @@ namespace EyeBreak.View
                     ButtonText = "Patience";
                     break;
                 case 3:
-                    btnChangeState.IsEnabled = true;
+                    //btnChangeState.IsEnabled = true;
                     StopSound(duringBreakSound);
                     ButtonText = "Start Timers Again";
                     break;
@@ -96,6 +96,9 @@ namespace EyeBreak.View
         }
 
         private void btnChangeState_Click(object sender, RoutedEventArgs e) {
+            // Not an elegant solution to proper colors for a disabled button
+            // but a solution regardless
+            if (state == 0 || state == 2) { return; }
             IncrementState();
             //btnChangeState.Foreground = (Brush)bc.ConvertFrom("#8899A6");
             //btnChangeState.Background = (Brush)bc.ConvertFrom("#22303C");
@@ -108,7 +111,7 @@ namespace EyeBreak.View
         }
 
         private void StartTimer(int seconds) {
-            btnChangeState.IsEnabled = false;
+            //btnChangeState.IsEnabled = false;
             time = TimeSpan.FromSeconds(seconds);
             timer = new DispatcherTimer();
             timer.Tick += new EventHandler(UpdateTimer);

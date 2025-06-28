@@ -13,30 +13,7 @@
         <Style TargetType="Button">
             <Setter Property="Background" Value="#22303C"/>
             <Setter Property="Foreground" Value="#8899A6"/>
-
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}">
-                            <ContentPresenter HorizontalAlignment="Center"
-                                              VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            
-            <Style.Triggers>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Background" Value="#15202B"/>
-                    <Setter Property="Foreground" Value="#192734"/>
-                </Trigger>
-                <Trigger Property="IsEnabled" Value="True">
-                    <Setter Property="Background" Value="#22303C"/>
-                    <Setter Property="Foreground" Value="#8899A6"/>
-                </Trigger>
-            </Style.Triggers>
         </Style>
-        
     </Window.Resources>
     
     <Grid>
