@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace EyeBreak.View.UserControls
 {
@@ -35,7 +36,14 @@ namespace EyeBreak.View.UserControls
         private void btnAdd_Click(object sender, RoutedEventArgs e) {
             string time = txtInput.Text;
             if (int.TryParse(time, out int value)) {
-                lvTimes.Items.Add("*"+time);
+                foreach(var item in lvTimes.Items) {
+                    var itemString = item.ToString();
+                    if (itemString == time || itemString == $"*{time}") {
+                        MessageBox.Show("Duplicate entry, please try again");
+                        return;
+                    }
+                }
+                lvTimes.Items.Add("*" + time);
                 //SaveTime(time);
             } else {
                 MessageBox.Show("Please input a whole number");
